@@ -18,7 +18,7 @@ class Login:
         WebDriverWait(self.driver, 5).until(expected_conditions.visibility_of_element_located(element))
 
     def click_button(self, element):
-        self.driver.findelement(element).click()
+        self.driver.findelement(element)
 
 
 login = Login(webdriver.Chrome())
