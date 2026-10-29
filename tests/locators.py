@@ -16,3 +16,6 @@ class LoginLocators:
     user_logo = (By.CSS_SELECTOR, '.svgSmall')
     user_name = (By.XPATH, '//*[@id="root"]/div/div[1]/div/div[1]/div/h3')
     picture = (By.CSS_SELECTOR, '.picture')
+    mail_error_text = (By.XPATH, '//*[@id="root"]/div/div[2]/div[5]/form/div[2]/div[1]/span')
+    password_error = (By.XPATH, '//*[@id="root"]/div/div[2]/div[5]/form/div[2]/div[2]/div/div')
+    repeat_password_error = (By.XPATH, '//*[@id="root"]/div/div[2]/div[5]/form/div[2]/div[3]/div/div')

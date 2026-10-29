@@ -6,7 +6,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 
 
-class Login:
+class Registration:
     def __init__(self, driver):
         self.driver = driver
         self.locator = LoginLocators
@@ -45,7 +45,7 @@ class Login:
     def quit(self):
         self.driver.quit()
 
-login = Login(webdriver.Chrome())
+login = Registration(webdriver.Chrome())
 email = login.generate_email()
 user_photo = 'svgSmall'
 password = 'password'
