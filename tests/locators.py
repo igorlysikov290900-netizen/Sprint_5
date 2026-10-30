@@ -22,7 +22,7 @@ class LoginLocators:
     password_error = (By.XPATH, '//*[@id="root"]/div/div[2]/div[5]/form/div[2]/div[2]/div/div')
     repeat_password_error = (By.XPATH, '//*[@id="root"]/div/div[2]/div[5]/form/div[2]/div[3]/div/div')
     logout_button = (By.XPATH, '//*[@id="root"]/div/div[1]/div/div[1]/div/button')
-    ad_name = (By,XPATH, '//*[@id="root"]/div/div[2]/div/form/div[2]/div[1]/div/div/input')
+    ad_name = (By. XPATH, '//*[@id="root"]/div/div[2]/div/form/div[2]/div[1]/div/div/input')
     ad_description = (By.XPATH, '//*[@id="root"]/div/div[2]/div/form/div[4]/div/textarea')
-    ad=cost - (By.XPATH, '//*[@id="root"]/div/div[2]/div/form/div[5]/div/div/input')
+    ad=cost = (By.XPATH, '//*[@id="root"]/div/div[2]/div/form/div[5]/div/div/input')
     
