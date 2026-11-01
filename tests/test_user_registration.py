@@ -1,23 +1,20 @@
 import random as r
-from locators import LoginLocators
-from selenium import webdriver 
-from selenium.webdriver.common.by import By
+from locators.locators import LoginLocators
+from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 
 
-class Registration:
-    def __init__(self, driver):
-        self.driver = driver
-        self.locator = LoginLocators
-### вынести в фикстуру
-    
+class TestUserRegistration:
+
     def generate_email(self):
         number = r.randint(1000, 9999)
         domain = r.choice(["@gmail.com", "@yandex.ru", "@mail.ru"])
-        return f"name{number}{domain}"
+        email = f"name{number}{domain}"
+        return email
 
-    def setup(self):
+    def setup_method(self):
+        self.driver = webdriver.Chrome()
         self.driver.maximize_window()
         self.driver.get('https://qa-desk.education-services.ru/')
         
@@ -42,20 +39,16 @@ class Registration:
         except:
             return False
 
-    def quit(self):
+    def teardown_method(self):
         self.driver.quit()
 
-login = Registration(webdriver.Chrome())
-email = login.generate_email()
-user_photo = 'svgSmall'
-password = 'password'
-login.generate_email
-login.setup()
-login.click_button(LoginLocators.login_window_button)
-login.click_button(LoginLocators.signup_window_button)
-login.send_keys(LoginLocators.signup_email_field, email)
-login.send_keys(LoginLocators.sign_up_password_field, password)
-login.send_keys(LoginLocators.signup_repeat_password_field, password)
-login.click_button(LoginLocators.sign_up_create_button)
-assert login.get_text(LoginLocators.user_name) == 'User.' and login.is_element_visible(LoginLocators.user_logo) == True
-login.quit()
+    def test_user_registration(self):
+        email = self.generate_email()
+        password = 'password'
+        self.click_button(LoginLocators.login_window_button)
+        self.click_button(LoginLocators.signup_window_button)
+        self.send_keys(LoginLocators.signup_email_field, email)
+        self.send_keys(LoginLocators.sign_up_password_field, password)
+        self.send_keys(LoginLocators.signup_repeat_password_field, password)
+        self.click_button(LoginLocators.sign_up_create_button)
+        assert self.get_text(LoginLocators.user_name) == 'User.' and self.is_element_visible(LoginLocators.user_logo) == True

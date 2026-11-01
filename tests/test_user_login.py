@@ -1,18 +1,13 @@
-import random as r
-from locators import LoginLocators
+from locators.locators import LoginLocators
 from selenium import webdriver 
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 
 
-class Login:
-    def __init__(self, driver):
-        self.driver = driver
-        self.locator = LoginLocators
-### вынести в фикстуру
+class TestUserLogin:
 
-    def setup(self):
+    def setup_method(self):
+        self.driver = webdriver.Chrome()
         self.driver.maximize_window()
         self.driver.get('https://qa-desk.education-services.ru/')
         
@@ -37,16 +32,14 @@ class Login:
         except:
             return False
 
-    def quit(self):
+    def teardown_method(self):
         self.driver.quit()
 
-login = Login(webdriver.Chrome())
-email = 'name1234@gmail.com'
-password = 'password'
-login.setup()
-login.click_button(LoginLocators.login_window_button)
-login.send_keys(LoginLocators.email_field, email)
-login.send_keys(LoginLocators.password_field, password)
-login.click_button(LoginLocators.login_button)
-assert login.get_text(LoginLocators.user_name) == 'User.' and login.is_element_visible(LoginLocators.user_logo) == True
-login.quit()
+    def test_user_login(self):
+        email = 'name1234@gmail.com'
+        password = 'password'
+        self.click_button(LoginLocators.login_window_button)
+        self.send_keys(LoginLocators.email_field, email)
+        self.send_keys(LoginLocators.password_field, password)
+        self.click_button(LoginLocators.login_button)
+        assert self.get_text(LoginLocators.user_name) == 'User.' and self.is_element_visible(LoginLocators.user_logo) == True

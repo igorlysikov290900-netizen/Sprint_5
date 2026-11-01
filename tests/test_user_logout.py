@@ -1,18 +1,14 @@
 import random as r
-from locators import LoginLocators
-from selenium import webdriver 
-from selenium.webdriver.common.by import By
+from locators.locators import LoginLocators
+from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 
 
-class Logout:
-    def __init__(self, driver):
-        self.driver = driver
-        self.locator = LoginLocators
-### вынести в фикстуру
+class TestUserLogout:
 
-    def setup(self):
+    def setup_method(self):
+        self.driver = webdriver.Chrome()
         self.driver.maximize_window()
         self.driver.get('https://qa-desk.education-services.ru/')
         
@@ -37,17 +33,15 @@ class Logout:
         except:
             return False
 
-    def quit(self):
+    def teardown_method(self):
         self.driver.quit()
 
-driver = Logout(webdriver.Chrome())
-email = 'name1234@gmail.com'
-password = 'password'
-driver.setup()
-driver.click_button(LoginLocators.login_window_button)
-driver.send_keys(LoginLocators.email_field, email)
-driver.send_keys(LoginLocators.password_field, password)
-driver.click_button(LoginLocators.login_button)
-driver.click_button(LoginLocators.logout_button)
-assert driver.get_text(LoginLocators.add_ad_button) == 'Разместить объявление' and driver.get_text(LoginLocators.login_window_button) == 'Вход и регистрация' and driver.is_element_visible(LoginLocators.user_name) == False and driver.is_element_visible(LoginLocators.user_logo) == False
-driver.quit()
+    def test_user_logout(self):
+        email = 'name1234@gmail.com'
+        password = 'password'
+        self.click_button(LoginLocators.login_window_button)
+        self.send_keys(LoginLocators.email_field, email)
+        self.send_keys(LoginLocators.password_field, password)
+        self.click_button(LoginLocators.login_button)
+        self.click_button(LoginLocators.logout_button)
+        assert self.get_text(LoginLocators.add_ad_button) == 'Разместить объявление' and self.get_text(LoginLocators.login_window_button) == 'Вход и регистрация' and self.is_element_visible(LoginLocators.user_name) == False and self.is_element_visible(LoginLocators.user_logo) == False

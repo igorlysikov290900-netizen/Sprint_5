@@ -1,22 +1,19 @@
 import random as r
-from locators import LoginLocators
+from locators.locators import LoginLocators
 from selenium import webdriver 
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 
 
-class RegistrationInvalidMail:
-    def __init__(self, driver):
-        self.driver = driver
-        self.locator = LoginLocators
-### вынести в фикстуру
-    
+class TestUserRegistrationInvalidMail:
+
     def generate_email(self):
         number = r.randint(1000, 9999)
-        return f"name{number}"
+        email = f"name{number}"
+        return email
 
-    def setup(self):
+    def setup_method(self):
+        self.driver = webdriver.Chrome()
         self.driver.maximize_window()
         self.driver.get('https://qa-desk.education-services.ru/')
         
@@ -41,20 +38,17 @@ class RegistrationInvalidMail:
             except:
                 return False
 
-    def quit(self):
+    def teardown_method(self):
         self.driver.quit()
 
-login = RegistrationInvalidMail(webdriver.Chrome())
-email = login.generate_email()
-password = 'password'
-login.generate_email
-login.setup()
-login.click_button(LoginLocators.login_window_button)
-login.click_button(LoginLocators.signup_window_button)
-login.send_keys(LoginLocators.signup_email_field, email)
-login.send_keys(LoginLocators.sign_up_password_field, password)
-login.send_keys(LoginLocators.signup_repeat_password_field, password)
-login.click_button(LoginLocators.sign_up_create_button)
-error_text = 'Ошибка'
-assert login.get_text(LoginLocators.mail_error_text) == 'Ошибка' and login.is_element_visible(LoginLocators.password_error) == True and login.is_element_visible(LoginLocators.repeat_password_error) == True
-login.quit()
+    def test_registration_invalid_mail(self):
+        password = 'password'
+        email = self.generate_email()
+        self.generate_email()
+        self.click_button(LoginLocators.login_window_button)
+        self.click_button(LoginLocators.signup_window_button)
+        self.send_keys(LoginLocators.signup_email_field, email)
+        self.send_keys(LoginLocators.sign_up_password_field, password)
+        self.send_keys(LoginLocators.signup_repeat_password_field, password)
+        self.click_button(LoginLocators.sign_up_create_button)
+        assert self.get_text(LoginLocators.mail_error_text) == 'Ошибка' and self.is_element_visible(LoginLocators.password_error) == True and self.is_element_visible(LoginLocators.repeat_password_error) == True
