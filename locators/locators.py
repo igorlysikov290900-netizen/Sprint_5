@@ -1,7 +1,6 @@
 from selenium.webdriver.common.by import By
 
 class LoginLocators:
-    ads_columns = (By.XPATH, '//*[@id="root"]/div/div[2]/div[2]')
     login_window_button = (By.XPATH, '//button[text()="Вход и регистрация"]')
     add_ad_button = (By.XPATH, '//button[text()="Разместить объявление"]')
     add_ad_window_button = (By. XPATH, '//html/body/div/div/div[1]/div/button')
